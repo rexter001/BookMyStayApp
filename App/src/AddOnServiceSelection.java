@@ -1,5 +1,4 @@
 public class AddOnServiceSelection {
-
     /**
      * Application entry point.
      *
