@@ -1,5 +1,4 @@
 public class Service {
-
     /**
      * Name of the service.
      */
