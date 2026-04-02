@@ -1,60 +1,46 @@
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * ===============================================================
- * MAIN CLASS - UseCase3InventorySetup
+ * CLASS - InventorySetup
  * ===============================================================
  *
- * Use Case 3: Centralized Room Inventory Management
+ * Used for persistence and recovery of inventory data
  *
- * Description:
- * This class demonstrates how room availability
- * is managed using a centralized inventory.
- *
- * Room objects are used to retrieve pricing
- * and room characteristics.
- *
- * No booking or search logic is introduced here.
- *
- * @version 3.1
+ * @version 3.2
  */
+public class InventorySetup implements Serializable {
 
-public class InventorySetup {
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * Application entry point.
-     *
-     * @param args Command-line arguments
-     */
-    public static void main(String[] args) {
+    private Map<String, Integer> inventory;
 
-        System.out.println("Hotel Room Inventory Status");
-        System.out.println();
+    public InventorySetup() {
+        inventory = new HashMap<>();
+    }
 
-        // Create inventory manager
-        RoomInventory inventory = new RoomInventory();
+    public void initializeInventory(
+            int single,
+            int doubleRoom,
+            int suite) {
 
-        // Create room objects
-        Room singleRoom = new SingleRoom();
-        Room doubleRoom = new DoubleRoom();
-        Room suiteRoom = new SuiteRoom();
+        inventory.put("Single", single);
+        inventory.put("Double", doubleRoom);
+        inventory.put("Suite", suite);
+    }
 
-        // Display Single Room Info
-        System.out.println("Single Room:");
-        singleRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " +
-                inventory.getRoomAvailability().get("Single"));
-        System.out.println();
+    public void displayInventory() {
 
-        // Display Double Room Info
-        System.out.println("Double Room:");
-        doubleRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " +
-                inventory.getRoomAvailability().get("Double"));
-        System.out.println();
+        for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
+            System.out.println(
+                    entry.getKey() + " -> " + entry.getValue()
+            );
+        }
+    }
 
-        // Display Suite Room Info
-        System.out.println("Suite Room:");
-        suiteRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " +
-                inventory.getRoomAvailability().get("Suite"));
+    public Map<String, Integer> getInventory() {
+        return inventory;
     }
 }
